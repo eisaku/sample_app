@@ -27,6 +27,10 @@ guard 'rspec',all_after_pass: false, cli: '--drb'  do
   watch(%r{^app/controllers/(.+)_(controller)\.rb$})  { |m| ["spec/routing/#{m[1]}_routing_spec.rb", "spec/#{m[2]}s/#{m[1]}_#{m[2]}_spec.rb", "spec/acceptance/#{m[1]}_spec.rb"] }
   watch(%r{^spec/support/(.+)\.rb$})                  { "spec" }
   watch('config/routes.rb')                           { "spec/routing" }
+  # rspec で pathが定義されていないのエラーになったので、変更
+  # 　参考：http://stackoverflow.com/questions/8903875/guard-w-rspec2-ruby1-9-3-rails-3-1-3
+  # その後、"spec/routing"にしないとダメになった
+  #watch('config/routes.rb')                           { "spec" }
   watch('app/controllers/application_controller.rb')  { "spec/controllers" }
 
   # Custom Rails Tutorial specs
