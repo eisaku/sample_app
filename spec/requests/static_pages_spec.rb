@@ -3,6 +3,8 @@ require 'spec_helper'
 # テスト対象：StaticPages
 describe "StaticPages" do
 
+  let(:base_title) { "Ruby on Rails Tutorial Sample App"}
+
   # Homeページ内容
   describe "Home Page" do
 
@@ -11,9 +13,14 @@ describe "StaticPages" do
       expect(page).to have_content('Sample App')
     end
 
-    it "should have the right title" do
+    it "should have the base title" do
       visit '/static_pages/home'
-      expect(page).to have_title("Ruby on Rails Tutorial Sample App | Home")
+      expect(page).to have_title("#{base_title}")
+    end
+
+    it "should have a custom title" do
+      visit '/static_pages/home'
+      expect(page).not_to have_title("| Home")
     end
  end
 
@@ -27,7 +34,7 @@ describe "StaticPages" do
 
     it "should have the right title" do
       visit '/static_pages/help'
-      expect(page).to have_title("Ruby on Rails Tutorial Sample App | Help")
+      expect(page).to have_title("#{base_title} | Help")
     end
  end
 
@@ -40,7 +47,20 @@ describe "StaticPages" do
 
     it "should have the right title" do
       visit '/static_pages/about'
-      expect(page).to have_title("Ruby on Rails Tutorial Sample App | About")
+      expect(page).to have_title("#{base_title} | About")
+    end
+  end
+
+  # contact ページ内容
+  describe "Contact Page" do
+    it "should have the content 'Contact'" do
+      visit '/static_pages/contact'
+      expect(page).to have_content('Contact')
+    end 
+
+    it "should have the right title" do
+      visit '/static_pages/contact'
+      expect(page).to have_title("#{base_title} | Contact")
     end
   end
 
