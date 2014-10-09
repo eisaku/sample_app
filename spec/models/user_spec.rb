@@ -17,6 +17,7 @@ describe User do
   it { should respond_to(:password_digest) }
   it { should respond_to(:password) }
   it { should respond_to(:password_confirmation) }
+  it { should respond_to(:remember_token) }             # Session
   it { should respond_to(:authenticate) }		# Is authoenticate method ?
 
  # normality confirmation of  @user.valid?
@@ -150,4 +151,8 @@ describe User do
     it { should be_invalid }   # invalid?
   end
 
+  describe "remember token" do
+    before { @user.save }
+    its(:remember_token) { should_not be_blank }
+  end
 end
